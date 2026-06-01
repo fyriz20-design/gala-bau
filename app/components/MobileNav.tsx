@@ -1,7 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
+import config from '@/data/config.json';
+
+const { company } = config;
 
 const links = [
   { href: '/',            label: 'Start' },
@@ -11,11 +15,13 @@ const links = [
 ];
 
 export default function MobileNav() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen]       = useState(false);
   const [mounted, setMounted] = useState(false);
 
+  // Portal braucht browser-Umgebung
   useEffect(() => { setMounted(true); }, []);
 
+  // Scroll sperren + Esc schließt Menü
   useEffect(() => {
     if (!mounted) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
@@ -29,12 +35,12 @@ export default function MobileNav() {
 
   const close = () => setOpen(false);
 
-  /* Nicht auf dem Server rendern – verhindert Hydration-Fehler */
-  if (!mounted) return null;
-
   return (
     <>
-      {/* Hamburger-Button */}
+      {/* ── Hamburger / X-Button ────────────────────────────────
+          Immer im DOM – Sichtbarkeit via CSS im <head> (#mobile-menu-btn)
+          display:none auf Desktop, display:flex auf Mobile (≤820px)
+      ────────────────────────────────────────────────────────── */}
       <button
         id="mobile-menu-btn"
         onClick={() => setOpen(o => !o)}
@@ -56,13 +62,13 @@ export default function MobileNav() {
       >
         {open ? (
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+            stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
             <line x1="18" y1="6" x2="6" y2="18"/>
-            <line x1="6" y1="6" x2="18" y2="18"/>
+            <line x1="6"  y1="6" x2="18" y2="18"/>
           </svg>
         ) : (
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+            stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
             <line x1="3" y1="6"  x2="21" y2="6"/>
             <line x1="3" y1="12" x2="21" y2="12"/>
             <line x1="3" y1="18" x2="21" y2="18"/>
@@ -70,110 +76,133 @@ export default function MobileNav() {
         )}
       </button>
 
-      {/* Vollbild-Overlay */}
-      {open && (
+      {/* ── Vollbild-Overlay via createPortal ──────────────────
+          Wird direkt in document.body gemountet, AUSSERHALB des
+          Headers. Dadurch entkommt es dem backdrop-filter-
+          Stacking-Context des Headers, der sonst position:fixed
+          auf den Header-Bereich beschränken würde.
+      ────────────────────────────────────────────────────────── */}
+      {mounted && open && createPortal(
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation"
           style={{
             position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'var(--bg-base)',
-            zIndex: 9998,
+            inset: 0,
+            zIndex: 99999,
+            backgroundColor: '#0f0f0f',
             display: 'flex',
             flexDirection: 'column',
-            paddingTop: '80px', /* Platz für Header */
-            paddingLeft: '1.5rem',
-            paddingRight: '1.5rem',
             overflowY: 'auto',
           }}
         >
-          {/* Schließen-Button oben rechts */}
-          <button
-            onClick={close}
-            aria-label="Menü schließen"
-            style={{
-              position: 'absolute',
-              top: '1.25rem',
-              right: '1.25rem',
-              background: 'none',
-              border: '1px solid var(--border)',
-              color: 'var(--text-primary)',
-              width: '44px',
-              height: '44px',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
-          </button>
+          {/* Header-Leiste im Overlay */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '1rem 1.5rem',
+            borderBottom: '1px solid #2e2e2e',
+            flexShrink: 0,
+          }}>
+            <Link href="/" onClick={close} style={{ textDecoration: 'none' }}>
+              <span style={{ fontFamily: 'Georgia, serif', fontSize: '1.3rem', color: '#f0f0f0', fontWeight: 700 }}>
+                GALA<span style={{ color: '#d4b53a' }}>-</span>BAU
+              </span>
+            </Link>
 
-          {/* Logo-Bereich */}
-          <div style={{ marginBottom: '2rem' }}>
-            <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', color: 'var(--text-primary)', fontWeight: 700 }}>
-              GALA<span style={{ color: 'var(--accent-light)' }}>-</span>BAU
-            </span>
+            <button
+              onClick={close}
+              aria-label="Menü schließen"
+              style={{
+                background: 'none',
+                border: '1px solid #3a3a3a',
+                color: '#f0f0f0',
+                width: '44px',
+                height: '44px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6"  y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
           </div>
 
-          {/* Navigation Links */}
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+          {/* Nav-Links */}
+          <nav style={{ flex: 1, padding: '1rem 1.5rem' }}>
             {links.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
                 onClick={close}
                 style={{
-                  color: 'var(--text-primary)',
-                  textDecoration: 'none',
-                  fontSize: '1.75rem',
-                  fontFamily: 'var(--font-display)',
-                  fontWeight: 600,
-                  padding: '1rem 0',
-                  borderBottom: '1px solid var(--border)',
                   display: 'block',
-                  letterSpacing: '0.01em',
-                  transition: 'color 0.15s ease',
+                  color: '#f0f0f0',
+                  textDecoration: 'none',
+                  fontSize: '2rem',
+                  fontFamily: 'Georgia, serif',
+                  fontWeight: 700,
+                  padding: '1rem 0',
+                  borderBottom: '1px solid #2e2e2e',
+                  letterSpacing: '-0.01em',
                 }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent-light)')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-primary)')}
               >
                 {label}
               </Link>
             ))}
+
+            <Link
+              href="/#kontakt"
+              onClick={close}
+              style={{
+                display: 'block',
+                marginTop: '2rem',
+                backgroundColor: '#c9a227',
+                color: '#fff',
+                textDecoration: 'none',
+                textAlign: 'center',
+                padding: '1rem',
+                fontSize: '0.875rem',
+                fontWeight: 700,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+              }}
+            >
+              Kostenlos anfragen →
+            </Link>
           </nav>
 
-          {/* CTA */}
-          <Link
-            href="/#kontakt"
-            onClick={close}
-            className="btn-primary"
-            style={{
-              marginTop: '2rem',
-              justifyContent: 'center',
-              textAlign: 'center',
-              fontSize: '0.9rem',
-            }}
-          >
-            Kostenlos anfragen →
-          </Link>
-
-          {/* Kontaktdaten */}
-          <div style={{ marginTop: 'auto', paddingTop: '2rem', paddingBottom: '2rem', borderTop: '1px solid var(--border)' }}>
-            <a href="tel:016075465370" style={{ color: 'var(--accent-light)', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 600, display: 'block', marginBottom: '0.5rem' }}>
-              0160 / 75 46 537
+          {/* Kontaktdaten unten */}
+          <div style={{
+            padding: '1.5rem',
+            borderTop: '1px solid #2e2e2e',
+            flexShrink: 0,
+          }}>
+            <a
+              href={`tel:${company.phone.replace(/[\s/]/g, '')}`}
+              style={{ display: 'block', color: '#d4b53a', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.4rem' }}
+            >
+              {company.phone}
             </a>
-            <a href="mailto:info@galabau-ojf.de" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.875rem' }}>
-              info@galabau-ojf.de
+            <a
+              href={`mailto:${company.email}`}
+              style={{ display: 'block', color: '#8a8a8a', textDecoration: 'none', fontSize: '0.875rem' }}
+            >
+              {company.email}
             </a>
+            <p style={{ color: '#555', fontSize: '0.8rem', marginTop: '0.25rem' }}>
+              {company.hours}
+            </p>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
