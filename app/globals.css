@@ -235,26 +235,42 @@ body {
 
 /* ── Gallery-Button (Grid-Kacheln) ──────────────────────── */
 
+/*
+  Gallery-Button:
+  Padding-bottom-Trick (75% = 3/4 Ratio) als universeller Fallback.
+  Funktioniert auf ALLEN Browsern inkl. älterer iOS/Android.
+  @supports aspect-ratio schaltet die moderne Variante dazu.
+*/
 .gallery-btn {
   position: relative;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
   display: block;
   width: 100%;
+  /* ── Universeller 4:3-Fallback ─────────────────────── */
+  padding-bottom: 75%;   /* 3÷4 = 75 % → erzeugt Höhe ohne aspect-ratio */
+  height: 0;
+  overflow: hidden;
   border: 1px solid var(--border);
-  padding: 0;
   cursor: pointer;
   background-color: var(--bg-card);
   transition: border-color 0.25s ease;
-  /* Touch-freundlich: kein :hover-Effekt nötig auf Mobile */
   -webkit-tap-highlight-color: transparent;
 }
 
-.gallery-btn:hover {
-  border-color: var(--accent-dark);
+/* Moderne Browser: aspect-ratio statt padding-trick */
+@supports (aspect-ratio: 4 / 3) {
+  .gallery-btn {
+    padding-bottom: 0;
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
 }
 
+.gallery-btn:hover { border-color: var(--accent-dark); }
+
+/* Bild absolut positioniert → füllt den Container zuverlässig */
 .gallery-btn img {
+  position: absolute;
+  top: 0; left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -262,15 +278,13 @@ body {
   transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.gallery-btn:hover img {
-  transform: scale(1.08);
-}
+.gallery-btn:hover img { transform: scale(1.06); }
 
-/* Overlay auf Hover */
+/* Overlay – nur auf Desktop sichtbar (hover) */
 .gallery-btn-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.1) 55%, transparent 100%);
+  background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
   display: flex;
@@ -280,9 +294,7 @@ body {
   pointer-events: none;
 }
 
-.gallery-btn:hover .gallery-btn-overlay {
-  opacity: 1;
-}
+.gallery-btn:hover .gallery-btn-overlay { opacity: 1; }
 
 .gallery-btn-label {
   color: #fff;

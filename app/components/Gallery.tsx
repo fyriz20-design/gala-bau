@@ -72,8 +72,8 @@ export default function Gallery({
             onClick={() => setActiveIndex(i)}
             aria-label={`Bild vergrößern: ${img.alt}`}
           >
-            {/* Bild */}
-            <img src={img.src} alt={img.alt} loading="lazy" />
+            {/* Bild – kein lazy loading, damit Höhe korrekt berechnet wird */}
+            <img src={img.src} alt={img.alt} />
 
             {/* Hover-Overlay */}
             <div className="gallery-btn-overlay">
