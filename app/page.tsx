@@ -1,5 +1,6 @@
 import config from "@/data/config.json";
 import Link from "next/link";
+import ContactForm from "@/app/components/ContactForm";
 
 const { company } = config;
 
@@ -292,99 +293,7 @@ export default function HomePage() {
           </p>
 
           {/* Kontaktformular */}
-          <form
-            style={{
-              display: "grid",
-              gap: "1rem",
-              textAlign: "left",
-            }}
-          >
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-              <div>
-                <label style={{ display: "block", fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-                  Vorname
-                </label>
-                <input
-                  type="text"
-                  placeholder="Max"
-                  style={{
-                    width: "100%",
-                    backgroundColor: "var(--bg-card)",
-                    border: "1px solid var(--border)",
-                    color: "var(--text-primary)",
-                    padding: "0.75rem 1rem",
-                    fontSize: "0.9rem",
-                    outline: "none",
-                    fontFamily: "var(--font-sans)",
-                  }}
-                />
-              </div>
-              <div>
-                <label style={{ display: "block", fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-                  Nachname
-                </label>
-                <input
-                  type="text"
-                  placeholder="Mustermann"
-                  style={{
-                    width: "100%",
-                    backgroundColor: "var(--bg-card)",
-                    border: "1px solid var(--border)",
-                    color: "var(--text-primary)",
-                    padding: "0.75rem 1rem",
-                    fontSize: "0.9rem",
-                    outline: "none",
-                    fontFamily: "var(--font-sans)",
-                  }}
-                />
-              </div>
-            </div>
-
-            <div>
-              <label style={{ display: "block", fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-                E-Mail
-              </label>
-              <input
-                type="email"
-                placeholder={company.email}
-                style={{
-                  width: "100%",
-                  backgroundColor: "var(--bg-card)",
-                  border: "1px solid var(--border)",
-                  color: "var(--text-primary)",
-                  padding: "0.75rem 1rem",
-                  fontSize: "0.9rem",
-                  outline: "none",
-                  fontFamily: "var(--font-sans)",
-                }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: "block", fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-                Ihre Nachricht
-              </label>
-              <textarea
-                rows={5}
-                placeholder="Beschreiben Sie kurz Ihr Projekt..."
-                style={{
-                  width: "100%",
-                  backgroundColor: "var(--bg-card)",
-                  border: "1px solid var(--border)",
-                  color: "var(--text-primary)",
-                  padding: "0.75rem 1rem",
-                  fontSize: "0.9rem",
-                  outline: "none",
-                  resize: "vertical",
-                  fontFamily: "var(--font-sans)",
-                }}
-              />
-            </div>
-
-            <button type="submit" className="btn-primary" style={{ justifyContent: "center" }}>
-              Anfrage absenden →
-            </button>
-          </form>
+          <ContactForm />
 
           {/* Direkte Kontaktdaten */}
           <div

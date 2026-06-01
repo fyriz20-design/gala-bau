@@ -1,24 +1,24 @@
 {
   "company": {
-    "name": "GALA.BAU Premium",
-    "slogan": "Professioneller Garten- & Landschaftsbau",
-    "founded": "2010",
+    "name": "GaLaBau O.JF",
+    "slogan": "Exklusive Handwerkskunst für Ihren Lebensraum",
+    "founded": "2014",
     "address": {
-      "street": "Musterstraße 12",
-      "city": "12345 Berlin",
+      "street": "Am Stöcken 8",
+      "city": "72458 Albstadt-Ebingen",
       "country": "Deutschland"
     },
-    "phone": "+49 (0) 30 123 456 78",
-    "email": "info@galabaupro.de",
-    "website": "https://www.galabaupro.de",
-    "hours": "Mo–Fr: 07:00–17:00 Uhr",
+    "phone": "0160 / 75 46 537",
+    "email": "info@galabau-ojf.de",
+    "website": "https://www.galabau-ojf.de",
+    "hours": "Mo–Fr: 07:00–18:00 Uhr",
     "social": {
       "instagram": "",
       "facebook": ""
     }
   },
   "seo": {
-    "title": "GALA.BAU – Professioneller Garten- & Landschaftsbau",
-    "description": "Ihr regionaler Experte für Garten- und Landschaftsbau. Über 15 Jahre Erfahrung – professionell, zuverlässig, persönlich."
+    "title": "GaLaBau O.JF | Garten- & Landschaftsbau Albstadt",
+    "description": "GaLaBau O.JF – Ihr Fachbetrieb für Garten- und Landschaftsbau in Albstadt-Ebingen. Pflasterarbeiten, Gartengestaltung, Terrassenbau, Zaunbau, Entwässerung und mehr."
   }
 }
