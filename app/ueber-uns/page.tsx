@@ -2,7 +2,8 @@ import config from "@/data/config.json";
 import Link from "next/link";
 import type { Metadata } from "next";
 import Gallery from "@/app/components/Gallery";
-import galleryImages from "@/data/gallery.json";
+import { getGallery } from "@/lib/gallery-store";
+import staticImages from "@/data/gallery.json";
 
 export const metadata: Metadata = {
   title: "Über uns – " + config.company.name,
@@ -12,6 +13,17 @@ export const metadata: Metadata = {
 
 const { company } = config;
 const yearsOfExp = parseInt(new Date().getFullYear().toString()) - parseInt(company.founded);
+
+// Seite ist async → lädt Bilder live aus dem Admin-Bereich
+export default async function UeberUnsPage() {
+  // Admin-Bilder holen; Fallback auf statische Platzhalter
+  let galleryImages: typeof staticImages = [];
+  try {
+    const live = await getGallery();
+    galleryImages = live.length > 0 ? live : staticImages;
+  } catch {
+    galleryImages = staticImages;
+  }
 
 /* ── Team ── */
 const team = [
@@ -44,7 +56,6 @@ const values = [
 ];
 
 /* ════════════════════════════════════════════════════════ */
-export default function UeberUnsPage() {
   return (
     <>
       {/* ── Page Header ── */}
@@ -202,39 +213,6 @@ export default function UeberUnsPage() {
 
           {/* ── Galerie-Komponente (Bilder in data/gallery.json verwalten) ── */}
           <Gallery images={galleryImages} columns={3} />
-
-          {/* Hinweis: eigene Bilder einfügen */}
-          <div
-            style={{
-              marginTop: "2rem",
-              padding: "1.25rem 1.5rem",
-              backgroundColor: "var(--accent-muted)",
-              border: "1px solid var(--accent-dark)",
-              display: "flex",
-              alignItems: "flex-start",
-              gap: "0.75rem",
-            }}
-          >
-            <span style={{ fontSize: "1.25rem", flexShrink: 0 }}>💡</span>
-            <p style={{ fontSize: "0.875rem", color: "var(--text-muted)", lineHeight: 1.7 }}>
-              <strong style={{ color: "var(--text-primary)" }}>Eigene Fotos hinzufügen:</strong>{" "}
-              Öffnen Sie die Datei{" "}
-              <code style={{ backgroundColor: "var(--bg-card)", padding: "0.1rem 0.4rem", fontFamily: "monospace", fontSize: "0.8rem" }}>
-                data/gallery.json
-              </code>{" "}
-              und tragen Sie dort Ihre Bilder ein – mit URL, Alt-Text und einer kurzen Beschreibung.
-              Neue Einträge erscheinen sofort in der Galerie, ohne dass Sie den Seiten-Code anfassen müssen.
-              Eigene Fotos legen Sie in{" "}
-              <code style={{ backgroundColor: "var(--bg-card)", padding: "0.1rem 0.4rem", fontFamily: "monospace", fontSize: "0.8rem" }}>
-                /public/galerie/meinbild.jpg
-              </code>{" "}
-              ab und verwenden dann{" "}
-              <code style={{ backgroundColor: "var(--bg-card)", padding: "0.1rem 0.4rem", fontFamily: "monospace", fontSize: "0.8rem" }}>
-                {`"src": "/galerie/meinbild.jpg"`}
-              </code>{" "}
-              in der JSON-Datei.
-            </p>
-          </div>
         </div>
       </section>
 
@@ -284,7 +262,7 @@ export default function UeberUnsPage() {
       <section className="section">
         <div className="container" style={{ textAlign: "center", maxWidth: "600px" }}>
           <h2 className="font-display" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", marginBottom: "1rem" }}>
-            Bereit für Ihren Traumgarten?
+            Bereit für Ihr nächstes Projekt?
           </h2>
           <p style={{ color: "var(--text-muted)", lineHeight: 1.7, marginBottom: "2rem" }}>
             Rufen Sie uns an oder schreiben Sie uns – wir beraten Sie gerne kostenlos und unverbindlich.

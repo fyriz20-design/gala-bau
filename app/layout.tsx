@@ -8,36 +8,15 @@ export const metadata: Metadata = {
   description: config.seo.description,
 };
 
-/* ── Logo SVG ────────────────────────────────────────── */
+/* ── Logo ────────────────────────────────────────────── */
 function Logo() {
   return (
-    <Link href="/" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.6rem" }}>
-      {/* Blatt-Icon */}
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path
-          d="M16 2C16 2 4 8 4 18C4 24.627 9.373 30 16 30C22.627 30 28 24.627 28 18C28 8 16 2 16 2Z"
-          fill="#4d8c3a"
-        />
-        <path
-          d="M16 30 L16 14"
-          stroke="#2a5c1e"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="M16 20 C13 17 9 16 7 16"
-          stroke="#2a5c1e"
-          strokeWidth="1"
-          strokeLinecap="round"
-          opacity="0.6"
-        />
-        <path
-          d="M16 24 C19 21 23 20 25 20"
-          stroke="#2a5c1e"
-          strokeWidth="1"
-          strokeLinecap="round"
-          opacity="0.6"
-        />
+    <Link href="/" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.65rem" }}>
+      {/* Baustein-Icon (gold) */}
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="2"  y="16" width="12" height="12" rx="1" fill="#c9a227" opacity="0.9"/>
+        <rect x="16" y="16" width="12" height="12" rx="1" fill="#c9a227" opacity="0.7"/>
+        <rect x="9"  y="2"  width="12" height="12" rx="1" fill="#d4b53a"/>
       </svg>
 
       {/* Schriftzug */}
@@ -48,7 +27,7 @@ function Logo() {
         color: "#f0f0f0",
         letterSpacing: "0.04em",
       }}>
-        GALA<span style={{ color: "var(--accent-light)" }}>.</span>BAU
+        GALA<span style={{ color: "var(--accent-light)" }}>-</span>BAU
       </span>
     </Link>
   );
@@ -61,7 +40,7 @@ function Header() {
       position: "sticky",
       top: 0,
       zIndex: 100,
-      backgroundColor: "rgba(15, 15, 15, 0.95)",
+      backgroundColor: "rgba(15, 15, 15, 0.96)",
       borderBottom: "1px solid var(--border)",
       backdropFilter: "blur(12px)",
       WebkitBackdropFilter: "blur(12px)",
@@ -74,11 +53,12 @@ function Header() {
       }}>
         <Logo />
 
-        <nav style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+        <nav style={{ display: "flex", alignItems: "center", gap: "1.75rem" }}>
           <Link href="/" className="nav-link">Start</Link>
           <Link href="/#leistungen" className="nav-link">Leistungen</Link>
           <Link href="/ueber-uns" className="nav-link">Über uns</Link>
           <Link href="/#kontakt" className="nav-link">Kontakt</Link>
+          <Link href="/admin" className="nav-link" style={{ color: "var(--text-subtle)" }}>Admin</Link>
           <Link href="/#kontakt" className="btn-primary" style={{ padding: "0.6rem 1.25rem", fontSize: "0.8rem" }}>
             Anfrage stellen
           </Link>
@@ -98,14 +78,12 @@ function Footer() {
       padding: "3rem 0 1.5rem",
     }}>
       <div className="container">
-        {/* Oberer Bereich */}
         <div style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
           gap: "2.5rem",
           marginBottom: "2.5rem",
         }}>
-          {/* Spalte 1: Logo & Slogan */}
           <div>
             <Logo />
             <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", marginTop: "0.75rem", lineHeight: 1.7 }}>
@@ -114,7 +92,6 @@ function Footer() {
             </p>
           </div>
 
-          {/* Spalte 2: Navigation */}
           <div>
             <h4 style={{ color: "var(--text-primary)", fontSize: "0.8rem", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "1rem" }}>
               Navigation
@@ -127,7 +104,6 @@ function Footer() {
             </div>
           </div>
 
-          {/* Spalte 3: Kontakt */}
           <div>
             <h4 style={{ color: "var(--text-primary)", fontSize: "0.8rem", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "1rem" }}>
               Kontakt
@@ -142,7 +118,6 @@ function Footer() {
           </div>
         </div>
 
-        {/* Unterer Bereich */}
         <div style={{
           borderTop: "1px solid var(--border)",
           paddingTop: "1.25rem",
@@ -165,7 +140,6 @@ function Footer() {
   );
 }
 
-/* ── Root Layout ─────────────────────────────────────── */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="de">
