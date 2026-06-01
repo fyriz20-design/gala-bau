@@ -4,35 +4,66 @@ import ContactForm from "@/app/components/ContactForm";
 
 const { company } = config;
 
+/* ── Service-Icon-Helfer ─────────────────────────────── */
+function SvcIcon({ d, d2 }: { d: string; d2?: string }) {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d={d}/>
+      {d2 && <path d={d2}/>}
+    </svg>
+  );
+}
+
 /* ── Service-Karten ──────────────────────────────────── */
 const services = [
   {
-    icon: "🏗️",
+    icon: <SvcIcon d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" d2="M9 22V12h6v10"/>,
     title: "Bausanierung",
     desc: "Professionelle Sanierung von Wohn- und Gewerbeimmobilien auf höchstem Niveau – mit Blick für das exklusive Detail.",
   },
   {
-    icon: "🧱",
+    icon: <SvcIcon d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3m8 0h3a2 2 0 0 0 2-2v-3"/>,
     title: "Trennwändesanierung",
     desc: "Fachgerechte Erneuerung und Instandsetzung von Trennwänden – sauber, schnell und termingerecht ausgeführt.",
   },
   {
-    icon: "🎨",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <circle cx="13.5" cy="6.5" r="0.5" fill="currentColor"/>
+        <circle cx="17.5" cy="10.5" r="0.5" fill="currentColor"/>
+        <circle cx="8.5" cy="7.5" r="0.5" fill="currentColor"/>
+        <circle cx="6.5" cy="12.5" r="0.5" fill="currentColor"/>
+        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
+      </svg>
+    ),
     title: "Malerarbeiten",
     desc: "Innen- und Außenanstriche in erstklassiger Qualität. Von der Untergrundvorbereitung bis zum finalen Anstrich – alles aus einer Hand.",
   },
   {
-    icon: "🪚",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+      </svg>
+    ),
     title: "Verputzarbeiten",
     desc: "Innen- und Außenputze für langlebige, ästhetische Oberflächen. Maschinell oder von Hand – präzise und dauerhaft.",
   },
   {
-    icon: "✨",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="11" x2="4" y2="3"/>
+        <line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="9" x2="12" y2="3"/>
+        <line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="13" x2="20" y2="3"/>
+        <line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="9" x2="15" y2="9"/>
+        <line x1="17" y1="16" x2="23" y2="16"/>
+      </svg>
+    ),
     title: "Spachtelarbeiten (Q1–Q4)",
     desc: "Alle Qualitätsstufen Q1 bis Q4 nach DIN 18202 – für glatte, makellose Oberflächen als perfekte Grundlage für Folgearbeiten.",
   },
   {
-    icon: "🪨",
+    icon: <SvcIcon d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>,
     title: "Pflaster & Terrassenbau",
     desc: "Einfahrten, Wege und Terrassen aus Naturstein oder Betonverbundsteinen – fachgerecht verlegt für Jahrzehnte.",
   },
@@ -201,13 +232,27 @@ export default function HomePage() {
               <div
                 key={i}
                 className="card"
-                style={{ padding: "2rem", border: "none" }}
+                style={{ padding: "2rem", border: "none", borderTop: "2px solid var(--accent-dark)" }}
               >
-                <span style={{ fontSize: "2rem" }}>{s.icon}</span>
-                <h3 style={{ fontSize: "1.125rem", fontWeight: 600, margin: "0.75rem 0 0.5rem" }}>
+                {/* Icon-Container */}
+                <div style={{
+                  width: "46px",
+                  height: "46px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "var(--accent-muted)",
+                  border: "1px solid rgba(201, 162, 39, 0.28)",
+                  marginBottom: "1.25rem",
+                  color: "var(--accent-light)",
+                  flexShrink: 0,
+                }}>
+                  {s.icon}
+                </div>
+                <h3 style={{ fontSize: "1.0625rem", fontWeight: 600, marginBottom: "0.5rem" }}>
                   {s.title}
                 </h3>
-                <p style={{ fontSize: "0.9rem", color: "var(--text-muted)", lineHeight: 1.7 }}>
+                <p style={{ fontSize: "0.875rem", color: "var(--text-muted)", lineHeight: 1.75 }}>
                   {s.desc}
                 </p>
               </div>

@@ -49,10 +49,46 @@ const team = [
 
 /* ── Werte ── */
 const values = [
-  { icon: "🏆", title: "Qualität", desc: "Wir verwenden ausschließlich hochwertige Materialien und arbeiten nach den aktuellen Qualitätsstandards der Branche." },
-  { icon: "🤝", title: "Verlässlichkeit", desc: "Vereinbarte Termine und Budgets halten wir ein – das ist für uns nicht verhandelbar." },
-  { icon: "🌱", title: "Nachhaltigkeit", desc: "Ressourcenschonendes Arbeiten und ökologische Materialien sind für uns selbstverständlich." },
-  { icon: "📍", title: "Regional", desc: "Als lokaler Betrieb aus Albstadt-Ebingen kennen wir die Region und ihre Bauten genau – das macht den Unterschied." },
+  {
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        <polyline points="9 12 11 14 15 10"/>
+      </svg>
+    ),
+    title: "Qualität",
+    desc: "Wir verwenden ausschließlich hochwertige Materialien und arbeiten nach den aktuellen Qualitätsstandards der Branche.",
+  },
+  {
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+    ),
+    title: "Verlässlichkeit",
+    desc: "Vereinbarte Termine und Budgets halten wir ein – das ist für uns nicht verhandelbar.",
+  },
+  {
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+        <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+      </svg>
+    ),
+    title: "Nachhaltigkeit",
+    desc: "Ressourcenschonendes Arbeiten und ökologische Materialien sind für uns selbstverständlich.",
+  },
+  {
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+    ),
+    title: "Regional",
+    desc: "Als lokaler Betrieb aus Albstadt-Ebingen kennen wir die Region und ihre Bauten genau – das macht den Unterschied.",
+  },
 ];
 
 /* ════════════════════════════════════════════════════════ */
@@ -186,10 +222,24 @@ const values = [
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1.5rem", marginTop: "1rem" }}>
             {values.map((v) => (
-              <div key={v.title} className="card" style={{ padding: "1.75rem" }}>
-                <span style={{ fontSize: "2rem" }}>{v.icon}</span>
-                <h3 style={{ fontSize: "1rem", fontWeight: 600, margin: "0.75rem 0 0.4rem" }}>{v.title}</h3>
-                <p style={{ fontSize: "0.875rem", color: "var(--text-muted)", lineHeight: 1.7 }}>{v.desc}</p>
+              <div key={v.title} className="card" style={{ padding: "1.75rem", borderTop: "2px solid var(--accent-dark)" }}>
+                {/* Icon-Container */}
+                <div style={{
+                  width: "46px",
+                  height: "46px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "var(--accent-muted)",
+                  border: "1px solid rgba(201, 162, 39, 0.28)",
+                  marginBottom: "1.25rem",
+                  color: "var(--accent-light)",
+                  flexShrink: 0,
+                }}>
+                  {v.icon}
+                </div>
+                <h3 style={{ fontSize: "1rem", fontWeight: 600, marginBottom: "0.5rem", color: "var(--text-primary)" }}>{v.title}</h3>
+                <p style={{ fontSize: "0.875rem", color: "var(--text-muted)", lineHeight: 1.75 }}>{v.desc}</p>
               </div>
             ))}
           </div>
