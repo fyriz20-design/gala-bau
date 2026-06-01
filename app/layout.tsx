@@ -54,8 +54,8 @@ function Header() {
       }}>
         <Logo />
 
-        {/* Desktop-Navigation (verschwindet unter 820px) */}
-        <nav className="nav-desktop">
+        {/* Desktop-Navigation — via #nav-desktop CSS auf Mobile versteckt */}
+        <nav id="nav-desktop">
           <Link href="/" className="nav-link">Start</Link>
           <Link href="/#leistungen" className="nav-link">Leistungen</Link>
           <Link href="/ueber-uns" className="nav-link">Über uns</Link>
@@ -66,7 +66,7 @@ function Header() {
           </Link>
         </nav>
 
-        {/* Mobile-Navigation (erscheint unter 820px) */}
+        {/* Hamburger-Button — via #mobile-menu-btn CSS auf Desktop versteckt */}
         <MobileNav />
       </div>
     </header>
@@ -148,6 +148,18 @@ function Footer() {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="de">
+      <head>
+        {/* ── Kritische responsive Stile direkt im Head ──
+            Verhindert Konflikte mit Tailwind 4 CSS-Pipeline */}
+        <style>{`
+          #nav-desktop { display: flex; align-items: center; gap: 1.75rem; }
+          #mobile-menu-btn { display: none; }
+          @media (max-width: 820px) {
+            #nav-desktop     { display: none !important; }
+            #mobile-menu-btn { display: flex !important; }
+          }
+        `}</style>
+      </head>
       <body>
         <Header />
         <main>{children}</main>
