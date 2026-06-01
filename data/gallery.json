@@ -1,0 +1,38 @@
+[
+  {
+    "src": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=85",
+    "alt": "Bausanierung Innenbereich",
+    "label": "Bausanierung",
+    "description": "Komplette Sanierung eines Wohngebäudes in Albstadt-Ebingen."
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=85",
+    "alt": "Malerarbeiten – glatte Wandoberfläche",
+    "label": "Malerarbeiten",
+    "description": "Innenanstrich mit hochwertigen Farben nach Kundenwunsch."
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=1200&q=85",
+    "alt": "Spachtelarbeiten Q4-Qualität",
+    "label": "Spachtelarbeiten Q1–Q4",
+    "description": "Makellose Oberfläche in Qualitätsstufe Q4 – bereit für jeden Anstrich."
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=1200&q=85",
+    "alt": "Verputzarbeiten Innen",
+    "label": "Verputzarbeiten",
+    "description": "Maschinenputz für gleichmäßige, langlebige Wandflächen."
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1200&q=85",
+    "alt": "Trennwandsanierung",
+    "label": "Trennwändesanierung",
+    "description": "Fachgerechte Erneuerung von Trennwänden – sauber und termingerecht."
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=1200&q=85",
+    "alt": "Pflasterarbeiten Einfahrt",
+    "label": "Pflasterarbeiten",
+    "description": "Hochwertige Pflasterung aus Naturstein für Einfahrten und Wege."
+  }
+]

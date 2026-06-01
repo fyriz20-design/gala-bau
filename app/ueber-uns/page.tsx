@@ -1,69 +1,37 @@
 import config from "@/data/config.json";
 import Link from "next/link";
 import type { Metadata } from "next";
+import Gallery from "@/app/components/Gallery";
+import galleryImages from "@/data/gallery.json";
 
 export const metadata: Metadata = {
   title: "Über uns – " + config.company.name,
   description:
-    "Lernen Sie das Team hinter GALA.BAU kennen. Über 15 Jahre Erfahrung im Garten- und Landschaftsbau – regional, persönlich und kompromisslos qualitätsbewusst.",
+    "Lernen Sie das Team hinter GaLaBau O.JF kennen. Fachbetrieb für Bausanierung, Malerarbeiten und Spachtelarbeiten in Albstadt-Ebingen – regional, persönlich, präzise.",
 };
 
 const { company } = config;
 const yearsOfExp = parseInt(new Date().getFullYear().toString()) - parseInt(company.founded);
 
-/* ── Galerie-Bilder (Unsplash-Platzhalter) ── */
-const galleryImages = [
-  {
-    src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80",
-    alt: "Professionelle Bausanierung",
-    label: "Bausanierung",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
-    alt: "Malerarbeiten – glatte Wandoberfläche",
-    label: "Malerarbeiten",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=800&q=80",
-    alt: "Spachtelarbeiten Qualität Q4",
-    label: "Spachtelarbeiten Q1–Q4",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=800&q=80",
-    alt: "Verputzarbeiten Innen",
-    label: "Verputzarbeiten",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80",
-    alt: "Trennwandsanierung",
-    label: "Trennwändesanierung",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=800&q=80",
-    alt: "Pflasterarbeiten Einfahrt",
-    label: "Pflasterarbeiten",
-  },
-];
-
 /* ── Team ── */
 const team = [
   {
-    name: "Aleksander Nowak",
-    role: "Inhaber & Meister des Garten- und Landschaftsbaus",
-    desc: "Über 20 Jahre Erfahrung in der Branche. Aleksander führt das Unternehmen mit Leidenschaft und einem untrüglichen Sinn für Qualität.",
-    initials: "AN",
+    name: "O.JF – Inhaber",
+    role: "Inhaber & Handwerksmeister",
+    desc: "Gründer und treibende Kraft hinter GaLaBau O.JF. Mit handwerklicher Präzision und einem untrüglichen Sinn für Qualität leitet er jeden Auftrag persönlich.",
+    initials: "OJ",
   },
   {
-    name: "Thomas Müller",
-    role: "Projektleiter",
-    desc: "Spezialist für komplexe Gartenanlagen und Pflasterarbeiten. Thomas koordiniert unsere Baustellen mit höchster Präzision.",
-    initials: "TM",
+    name: "Bauleitung",
+    role: "Projektleitung & Ausführung",
+    desc: "Unsere erfahrenen Fachkräfte koordinieren Bausanierungen, Malerarbeiten und Spachtelarbeiten – termingerecht und auf höchstem Niveau.",
+    initials: "BL",
   },
   {
-    name: "Sara Klein",
-    role: "Gartenplanerin & Designerin",
-    desc: "Mit Kreativität und botanischem Fachwissen entwirft Sara Außenanlagen, die Funktionalität und Ästhetik vereinen.",
-    initials: "SK",
+    name: "Kundenbetreuung",
+    role: "Beratung & Aufmaß",
+    desc: "Vom ersten Gespräch bis zur Abnahme: persönliche Beratung, transparente Kostenvoranschläge und ein direkter Ansprechpartner für alle Fragen.",
+    initials: "KB",
   },
 ];
 
@@ -232,30 +200,8 @@ export default function UeberUnsPage() {
             Jedes Bild erzählt die Geschichte eines zufriedenen Kunden.
           </p>
 
-          {/* Galerie-Grid */}
-          <div className="gallery-grid">
-            {galleryImages.map((img, i) => (
-              <div key={i} className="gallery-item">
-                <img src={img.src} alt={img.alt} loading="lazy" />
-                {/* Label-Overlay */}
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)",
-                    display: "flex",
-                    alignItems: "flex-end",
-                    padding: "1rem",
-                    opacity: 0,
-                    transition: "opacity 0.3s ease",
-                  }}
-                  className="gallery-overlay"
-                >
-                  <span style={{ color: "#fff", fontSize: "0.875rem", fontWeight: 600 }}>{img.label}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* ── Galerie-Komponente (Bilder in data/gallery.json verwalten) ── */}
+          <Gallery images={galleryImages} columns={3} />
 
           {/* Hinweis: eigene Bilder einfügen */}
           <div
@@ -265,22 +211,28 @@ export default function UeberUnsPage() {
               backgroundColor: "var(--accent-muted)",
               border: "1px solid var(--accent-dark)",
               display: "flex",
-              alignItems: "center",
+              alignItems: "flex-start",
               gap: "0.75rem",
             }}
           >
-            <span style={{ fontSize: "1.25rem" }}>💡</span>
-            <p style={{ fontSize: "0.875rem", color: "var(--text-muted)", lineHeight: 1.6 }}>
-              <strong style={{ color: "var(--text-primary)" }}>Eigene Bilder einfügen:</strong>{" "}
-              Legen Sie Ihre Projektfotos in den Ordner{" "}
+            <span style={{ fontSize: "1.25rem", flexShrink: 0 }}>💡</span>
+            <p style={{ fontSize: "0.875rem", color: "var(--text-muted)", lineHeight: 1.7 }}>
+              <strong style={{ color: "var(--text-primary)" }}>Eigene Fotos hinzufügen:</strong>{" "}
+              Öffnen Sie die Datei{" "}
               <code style={{ backgroundColor: "var(--bg-card)", padding: "0.1rem 0.4rem", fontFamily: "monospace", fontSize: "0.8rem" }}>
-                /public/galerie/
+                data/gallery.json
               </code>{" "}
-              und ersetzen Sie die Bild-URLs im Array{" "}
+              und tragen Sie dort Ihre Bilder ein – mit URL, Alt-Text und einer kurzen Beschreibung.
+              Neue Einträge erscheinen sofort in der Galerie, ohne dass Sie den Seiten-Code anfassen müssen.
+              Eigene Fotos legen Sie in{" "}
               <code style={{ backgroundColor: "var(--bg-card)", padding: "0.1rem 0.4rem", fontFamily: "monospace", fontSize: "0.8rem" }}>
-                galleryImages
+                /public/galerie/meinbild.jpg
               </code>{" "}
-              in der Datei <code style={{ backgroundColor: "var(--bg-card)", padding: "0.1rem 0.4rem", fontFamily: "monospace", fontSize: "0.8rem" }}>app/ueber-uns/page.tsx</code>.
+              ab und verwenden dann{" "}
+              <code style={{ backgroundColor: "var(--bg-card)", padding: "0.1rem 0.4rem", fontFamily: "monospace", fontSize: "0.8rem" }}>
+                {`"src": "/galerie/meinbild.jpg"`}
+              </code>{" "}
+              in der JSON-Datei.
             </p>
           </div>
         </div>
