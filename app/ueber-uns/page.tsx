@@ -234,7 +234,7 @@ const values = [
           </p>
 
           {/* ── Galerie-Komponente (Bilder in data/gallery.json verwalten) ── */}
-          <Gallery images={galleryImages} columns={3} />
+          <Gallery images={galleryImages} />
         </div>
       </section>
 
