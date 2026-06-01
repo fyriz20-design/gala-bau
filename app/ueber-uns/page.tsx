@@ -2,28 +2,18 @@ import config from "@/data/config.json";
 import Link from "next/link";
 import type { Metadata } from "next";
 import Gallery from "@/app/components/Gallery";
-import { getGallery } from "@/lib/gallery-store";
-import staticImages from "@/data/gallery.json";
+import galleryImages from "@/data/gallery.json";
 
 export const metadata: Metadata = {
   title: "Über uns – " + config.company.name,
   description:
-    "Lernen Sie das Team hinter GaLaBau O.JF kennen. Fachbetrieb für Bausanierung, Malerarbeiten und Spachtelarbeiten in Albstadt-Ebingen – regional, persönlich, präzise.",
+    "Fachbetrieb für Bausanierung, Malerarbeiten und Spachtelarbeiten in Albstadt-Ebingen – regional, persönlich, präzise.",
 };
 
 const { company } = config;
 const yearsOfExp = parseInt(new Date().getFullYear().toString()) - parseInt(company.founded);
 
-// Seite ist async → lädt Bilder live aus dem Admin-Bereich
-export default async function UeberUnsPage() {
-  // Admin-Bilder holen; Fallback auf statische Platzhalter
-  let galleryImages: typeof staticImages = [];
-  try {
-    const live = await getGallery();
-    galleryImages = live.length > 0 ? live : staticImages;
-  } catch {
-    galleryImages = staticImages;
-  }
+export default function UeberUnsPage() {
 
 /* ── Team ── */
 const team = [
