@@ -10,11 +10,28 @@ export interface GalleryImage {
   description?: string;
 }
 
-export default function Gallery({ images }: { images: GalleryImage[] }) {
+interface Props {
+  /** Statische Platzhalter-Bilder (werden durch Live-Bilder ersetzt, sobald vorhanden) */
+  images: GalleryImage[];
+}
+
+export default function Gallery({ images: staticImages }: Props) {
+  const [images, setImages]           = useState<GalleryImage[]>(staticImages);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [mounted, setMounted]         = useState(false);
 
-  useEffect(() => { setMounted(true); }, []);
+  /* ── Client-seitig auf Live-Bilder aus dem Admin aktualisieren ── */
+  useEffect(() => {
+    setMounted(true);
+    fetch('/api/gallery-public')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          setImages(data as GalleryImage[]);
+        }
+      })
+      .catch(() => { /* Statische Bilder bleiben */ });
+  }, []);
 
   const isOpen = activeIndex !== null;
   const active = isOpen ? images[activeIndex] : null;
@@ -57,14 +74,8 @@ export default function Gallery({ images }: { images: GalleryImage[] }) {
             aria-label={`Bild vergrößern: ${img.alt}`}
             onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setActiveIndex(i); }}
           >
-            {/* Wrapper erzeugt 4:3-Höhe zuverlässig auf ALLEN Browsern */}
             <div className="gallery-item-inner">
-              <img
-                src={img.src}
-                alt={img.alt}
-                className="gallery-item-img"
-              />
-              {/* Hover-Overlay */}
+              <img src={img.src} alt={img.alt} className="gallery-item-img" />
               <div className="gallery-item-overlay">
                 {img.label && <span className="gallery-item-label">{img.label}</span>}
                 {img.description && <span className="gallery-item-desc">{img.description}</span>}
@@ -83,7 +94,7 @@ export default function Gallery({ images }: { images: GalleryImage[] }) {
         ))}
       </div>
 
-      {/* ── Lightbox (via Portal – umgeht backdrop-filter Stacking) ── */}
+      {/* ── Lightbox via Portal ────────────────────────── */}
       {mounted && isOpen && active && createPortal(
         <div
           role="dialog"
@@ -96,7 +107,6 @@ export default function Gallery({ images }: { images: GalleryImage[] }) {
             padding: '1rem',
           }}
         >
-          {/* Bildinhalt – Klick schließt nicht */}
           <div onClick={e => e.stopPropagation()} style={{ maxWidth: '90vw', maxHeight: '90vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <img
               src={active.src}
@@ -112,12 +122,10 @@ export default function Gallery({ images }: { images: GalleryImage[] }) {
             <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem', marginTop: '0.5rem' }}>{activeIndex! + 1} / {images.length}</p>
           </div>
 
-          {/* Schließen */}
           <button onClick={close} aria-label="Schließen" style={{ position: 'fixed', top: '1rem', right: '1rem', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', width: '44px', height: '44px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
 
-          {/* Prev / Next */}
           {images.length > 1 && (
             <>
               <button onClick={e => { e.stopPropagation(); goPrev(); }} aria-label="Vorheriges Bild" style={{ position: 'fixed', left: '1rem', top: '50%', transform: 'translateY(-50%)', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', width: '44px', height: '44px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
