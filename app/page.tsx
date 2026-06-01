@@ -7,43 +7,43 @@ const { company } = config;
 /* ── Service-Karten ──────────────────────────────────── */
 const services = [
   {
-    icon: "🌿",
-    title: "Gartengestaltung",
-    desc: "Von der Planung bis zur Fertigstellung gestalten wir Ihren Traumgarten – individuell, nachhaltig und mit Liebe zum Detail.",
+    icon: "🏗️",
+    title: "Bausanierung",
+    desc: "Professionelle Sanierung von Wohn- und Gewerbeimmobilien auf höchstem Niveau – mit Blick für das exklusive Detail.",
+  },
+  {
+    icon: "🧱",
+    title: "Trennwändesanierung",
+    desc: "Fachgerechte Erneuerung und Instandsetzung von Trennwänden – sauber, schnell und termingerecht ausgeführt.",
+  },
+  {
+    icon: "🎨",
+    title: "Malerarbeiten",
+    desc: "Innen- und Außenanstriche in erstklassiger Qualität. Von der Untergrundvorbereitung bis zum finalen Anstrich – alles aus einer Hand.",
+  },
+  {
+    icon: "🪚",
+    title: "Verputzarbeiten",
+    desc: "Innen- und Außenputze für langlebige, ästhetische Oberflächen. Maschinell oder von Hand – präzise und dauerhaft.",
+  },
+  {
+    icon: "✨",
+    title: "Spachtelarbeiten (Q1–Q4)",
+    desc: "Alle Qualitätsstufen Q1 bis Q4 nach DIN 18202 – für glatte, makellose Oberflächen als perfekte Grundlage für Folgearbeiten.",
   },
   {
     icon: "🪨",
-    title: "Pflasterarbeiten",
-    desc: "Wege, Einfahrten und Terrassen aus Naturstein oder Beton-Verbundsteinen – fachgerecht verlegt für Jahrzehnte.",
-  },
-  {
-    icon: "🌳",
-    title: "Baum- & Heckenpflege",
-    desc: "Professioneller Schnitt, Fällung und Pflanzung von Bäumen und Hecken durch ausgebildete Fachkräfte.",
-  },
-  {
-    icon: "💧",
-    title: "Bewässerungssysteme",
-    desc: "Automatische Bewässerungsanlagen, die Ihren Garten effizient und ressourcenschonend mit Wasser versorgen.",
-  },
-  {
-    icon: "🏡",
-    title: "Terrassen & Pergolen",
-    desc: "Holz, WPC oder Stein – wir bauen Ihre Terrasse und Pergola als perfekten Außenwohnraum.",
-  },
-  {
-    icon: "❄️",
-    title: "Winterdienst",
-    desc: "Verlässlicher Räum- und Streudienst für Privatgrundstücke und Gewerbeimmobilien – pünktlich und zuverlässig.",
+    title: "Pflaster & Terrassenbau",
+    desc: "Einfahrten, Wege und Terrassen aus Naturstein oder Betonverbundsteinen – fachgerecht verlegt für Jahrzehnte.",
   },
 ];
 
 /* ── Statistiken ─────────────────────────────────────── */
 const stats = [
-  { value: "15+", label: "Jahre Erfahrung" },
-  { value: "500+", label: "Projekte umgesetzt" },
+  { value: `${new Date().getFullYear() - parseInt(company.founded)}+`, label: "Jahre Erfahrung" },
+  { value: "300+", label: "Projekte umgesetzt" },
   { value: "98%", label: "Zufriedene Kunden" },
-  { value: "3", label: "Ausgezeichnete Fachbetriebe" },
+  { value: "Q1–Q4", label: "Spachtelqualität" },
 ];
 
 /* ── Startseite ──────────────────────────────────────── */
@@ -66,7 +66,7 @@ export default function HomePage() {
             position: "absolute",
             inset: 0,
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1920&q=80')",
+              "url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1920&q=80')",
             backgroundSize: "cover",
             backgroundPosition: "center",
             filter: "brightness(0.35)",
@@ -111,8 +111,8 @@ export default function HomePage() {
               marginBottom: "1.5rem",
             }}
           >
-            Ihr Garten.<br />
-            <span style={{ color: "var(--accent-light)" }}>Unsere Leidenschaft.</span>
+            Handwerkskunst.<br />
+            <span style={{ color: "var(--accent-light)" }}>Werte erhalten.</span>
           </h1>
 
           <p
@@ -124,8 +124,9 @@ export default function HomePage() {
               marginBottom: "2.5rem",
             }}
           >
-            Seit über {parseInt(new Date().getFullYear().toString()) - parseInt(company.founded)} Jahren verwandeln wir Außenflächen in grüne Oasen.
-            Präzision, Qualität und regionale Verbundenheit – das ist unser Versprechen an Sie.
+            Seit {new Date().getFullYear() - parseInt(company.founded)} Jahren stehen wir für erstklassige Bausanierung,
+            Malerarbeiten und Spachtelqualität auf höchstem Niveau.
+            Regional verwurzelt – kompromisslos in der Ausführung.
           </p>
 
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
@@ -184,7 +185,7 @@ export default function HomePage() {
           </h2>
           <div className="divider" />
           <p style={{ color: "var(--text-muted)", maxWidth: "540px", marginBottom: "3rem", lineHeight: 1.7 }}>
-            Von der Gartenplanung bis zum Winterdienst – wir bieten Ihnen alle Leistungen rund um Ihren Außenbereich aus einer Hand.
+            Von der Bausanierung über Malerarbeiten bis zum Pflasterbau – wir bieten Ihnen alle Handwerksleistungen aus einer Hand.
           </p>
 
           <div
@@ -224,7 +225,7 @@ export default function HomePage() {
           {/* Bild */}
           <div style={{ position: "relative" }}>
             <img
-              src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80"
+              src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80"
               alt="Unser Team bei der Arbeit"
               style={{
                 width: "100%",
@@ -265,11 +266,12 @@ export default function HomePage() {
             <div className="divider" />
             <p style={{ color: "var(--text-muted)", lineHeight: 1.8, marginBottom: "1rem" }}>
               Als inhabergeführter Fachbetrieb stehen wir für persönliche Beratung und kompromisslose Qualität.
-              Jedes Projekt behandeln wir mit derselben Sorgfalt – egal ob kleiner Privatgarten oder große Gewerbefläche.
+              Ob Bausanierung, Malerarbeiten oder Spachtelarbeiten nach Q1–Q4 – jedes Projekt wird mit derselben
+              Sorgfalt und Präzision ausgeführt.
             </p>
             <p style={{ color: "var(--text-muted)", lineHeight: 1.8, marginBottom: "2rem" }}>
-              Unsere qualifizierten Mitarbeiter bringen jahrelange Erfahrung mit und bilden sich kontinuierlich weiter,
-              damit Sie stets von modernsten Techniken und Materialien profitieren.
+              Unsere qualifizierten Handwerker bringen jahrelange Erfahrung mit und bilden sich kontinuierlich weiter,
+              damit Sie stets von modernsten Techniken und hochwertigen Materialien profitieren.
             </p>
             <Link href="/ueber-uns" className="btn-primary">
               Mehr über uns →

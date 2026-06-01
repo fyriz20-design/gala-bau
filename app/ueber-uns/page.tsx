@@ -14,34 +14,34 @@ const yearsOfExp = parseInt(new Date().getFullYear().toString()) - parseInt(comp
 /* ── Galerie-Bilder (Unsplash-Platzhalter) ── */
 const galleryImages = [
   {
+    src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80",
+    alt: "Professionelle Bausanierung",
+    label: "Bausanierung",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
+    alt: "Malerarbeiten – glatte Wandoberfläche",
+    label: "Malerarbeiten",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=800&q=80",
+    alt: "Spachtelarbeiten Qualität Q4",
+    label: "Spachtelarbeiten Q1–Q4",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=800&q=80",
+    alt: "Verputzarbeiten Innen",
+    label: "Verputzarbeiten",
+  },
+  {
     src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80",
-    alt: "Gepflegter Garten mit Natursteinweg",
-    label: "Gartengestaltung",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80",
-    alt: "Professionelle Gartenpflege",
-    label: "Pflanzenpflege",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=800&q=80",
-    alt: "Natursteinterrasse",
-    label: "Terrassen & Wege",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=800&q=80",
-    alt: "Stadtbegrünung und Hecken",
-    label: "Hecken & Bäume",
+    alt: "Trennwandsanierung",
+    label: "Trennwändesanierung",
   },
   {
     src: "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=800&q=80",
-    alt: "Moderne Hauseinfahrt",
+    alt: "Pflasterarbeiten Einfahrt",
     label: "Pflasterarbeiten",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=800&q=80",
-    alt: "Holzterrasse mit Gartenbeleuchtung",
-    label: "Holz & Pergolen",
   },
 ];
 
@@ -72,7 +72,7 @@ const values = [
   { icon: "🏆", title: "Qualität", desc: "Wir verwenden ausschließlich hochwertige Materialien und arbeiten nach den aktuellen Qualitätsstandards der Branche." },
   { icon: "🤝", title: "Verlässlichkeit", desc: "Vereinbarte Termine und Budgets halten wir ein – das ist für uns nicht verhandelbar." },
   { icon: "🌱", title: "Nachhaltigkeit", desc: "Ressourcenschonendes Arbeiten und ökologische Materialien sind für uns selbstverständlich." },
-  { icon: "📍", title: "Regional", desc: "Als lokales Unternehmen kennen wir die Region, ihre Böden und ihre Menschen – das macht den Unterschied." },
+  { icon: "📍", title: "Regional", desc: "Als lokaler Betrieb aus Albstadt-Ebingen kennen wir die Region und ihre Bauten genau – das macht den Unterschied." },
 ];
 
 /* ════════════════════════════════════════════════════════ */
@@ -92,7 +92,7 @@ export default function UeberUnsPage() {
             position: "absolute",
             inset: 0,
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1920&q=80')",
+              "url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1920&q=80')",
             backgroundSize: "cover",
             backgroundPosition: "center top",
             filter: "brightness(0.25)",
@@ -106,8 +106,8 @@ export default function UeberUnsPage() {
             Über uns
           </h1>
           <p style={{ color: "rgba(240,240,240,0.7)", maxWidth: "540px", lineHeight: 1.7 }}>
-            Ein regionaler Fachbetrieb mit über {yearsOfExp} Jahren Erfahrung –
-            persönlich, professionell und leidenschaftlich.
+            Ihr Fachbetrieb für Bausanierung, Malerarbeiten und Spachtelqualität
+            in Albstadt-Ebingen und Umgebung – seit {company.founded}.
           </p>
         </div>
       </section>
@@ -134,24 +134,24 @@ export default function UeberUnsPage() {
             <div className="divider" />
 
             <p style={{ color: "var(--text-muted)", lineHeight: 1.85, marginBottom: "1.25rem" }}>
-              Was als Ein-Mann-Betrieb begann, ist heute ein eingespieltes Team aus qualifizierten Garten-
-              und Landschaftsbauern, das jährlich über hundert Projekte in der Region erfolgreich abschließt.
-              Gegründet im Jahr {company.founded}, haben wir uns von Anfang an auf kompromisslose Qualität
-              und persönlichen Service konzentriert.
+              Was als kleiner Familienbetrieb begann, ist heute ein eingespieltes Team aus erfahrenen
+              Handwerkern, das jährlich zahlreiche Sanierungs- und Renovierungsprojekte in der Region
+              erfolgreich abschließt. Gegründet im Jahr {company.founded}, haben wir uns von Anfang an
+              auf kompromisslose Qualität und persönlichen Service konzentriert.
             </p>
 
             <p style={{ color: "var(--text-muted)", lineHeight: 1.85, marginBottom: "1.25rem" }}>
-              Wir wissen, dass Ihr Garten mehr ist als nur eine Grünfläche – er ist Ihr Lebensraum,
-              Ihr Rückzugsort und oft das erste, was Besucher von Ihrem Zuhause sehen.
-              Deshalb nehmen wir uns die Zeit, Ihre Wünsche wirklich zu verstehen, bevor die erste
-              Schaufel Erde bewegt wird.
+              Ob Bausanierung, Malerarbeiten, Verputz- oder Spachtelarbeiten nach Q1 bis Q4 –
+              jede Oberfläche, die wir bearbeiten, ist ein Ausdruck unseres Anspruchs an
+              Präzision und Langlebigkeit. Denn wir wissen: Qualität, die man sieht,
+              beginnt mit Qualität, die man nicht sieht.
             </p>
 
             <p style={{ color: "var(--text-muted)", lineHeight: 1.85, marginBottom: "2rem" }}>
-              Als inhabergeführter Betrieb sind wir nicht nur für unsere Kunden verantwortlich,
-              sondern auch für unsere Mitarbeiter und die Region, in der wir arbeiten und leben.
+              Als inhabergeführter Betrieb sind wir nicht nur unseren Kunden verpflichtet,
+              sondern auch der Region Albstadt, in der wir arbeiten und leben.
               Kurze Wege, schnelle Reaktionszeiten und ein direkter Ansprechpartner –
-              das unterscheidet uns von großen Ketten.
+              das unterscheidet uns von großen anonymen Baufirmen.
             </p>
 
             <Link href="/#kontakt" className="btn-primary">
@@ -162,7 +162,7 @@ export default function UeberUnsPage() {
           {/* Bild rechts */}
           <div style={{ position: "relative" }}>
             <img
-              src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=800&q=80"
+              src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80"
               alt="Unser Team bei der Arbeit"
               style={{ width: "100%", aspectRatio: "3/4", objectFit: "cover" }}
             />
