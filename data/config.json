@@ -1,0 +1,24 @@
+{
+  "company": {
+    "name": "GALA.BAU Premium",
+    "slogan": "Professioneller Garten- & Landschaftsbau",
+    "founded": "2010",
+    "address": {
+      "street": "Musterstraße 12",
+      "city": "12345 Berlin",
+      "country": "Deutschland"
+    },
+    "phone": "+49 (0) 30 123 456 78",
+    "email": "info@galabaupro.de",
+    "website": "https://www.galabaupro.de",
+    "hours": "Mo–Fr: 07:00–17:00 Uhr",
+    "social": {
+      "instagram": "",
+      "facebook": ""
+    }
+  },
+  "seo": {
+    "title": "GALA.BAU – Professioneller Garten- & Landschaftsbau",
+    "description": "Ihr regionaler Experte für Garten- und Landschaftsbau. Über 15 Jahre Erfahrung – professionell, zuverlässig, persönlich."
+  }
+}
