@@ -6,9 +6,19 @@ import config from '@/data/config.json';
 const { company } = config;
 
 type Status = 'idle' | 'sending' | 'success' | 'error';
+type Vorhaben = 'Umbau' | 'Anbau' | 'Neubau' | 'Sanierung' | 'Sonstiges';
+
+const VORHABEN_OPTIONS: { value: Vorhaben; label: string; emoji: string }[] = [
+  { value: 'Umbau',     label: 'Umbau',     emoji: '🏗️' },
+  { value: 'Anbau',     label: 'Anbau',     emoji: '🏠' },
+  { value: 'Neubau',    label: 'Neubau',    emoji: '🏡' },
+  { value: 'Sanierung', label: 'Sanierung', emoji: '🔨' },
+  { value: 'Sonstiges', label: 'Sonstiges', emoji: '💬' },
+];
 
 export default function ContactForm() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [vorhaben, setVorhaben] = useState<Vorhaben | ''>('');
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [status, setStatus] = useState<Status>('idle');
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -17,18 +27,20 @@ export default function ContactForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!vorhaben) return;
     setStatus('sending');
 
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ vorhaben, ...form }),
       });
 
       if (res.ok) {
         setStatus('success');
-        setForm({ name: '', email: '', message: '' });
+        setVorhaben('');
+        setForm({ name: '', email: '', phone: '', message: '' });
       } else {
         setStatus('error');
       }
@@ -95,8 +107,57 @@ export default function ContactForm() {
         </div>
       )}
 
-      {/* Formular */}
-      <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1rem' }}>
+      <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1.25rem' }}>
+
+        {/* ── Vorhaben-Auswahl ── */}
+        <div>
+          <label style={labelStyle}>Um welches Vorhaben geht es? *</label>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))',
+            gap: '0.6rem',
+          }}>
+            {VORHABEN_OPTIONS.map((opt) => {
+              const isActive = vorhaben === opt.value;
+              return (
+                <label
+                  key={opt.value}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.6rem',
+                    padding: '0.7rem 1rem',
+                    backgroundColor: isActive ? 'var(--accent-muted)' : 'var(--bg-card)',
+                    border: `1px solid ${isActive ? 'var(--accent-dark)' : 'var(--border)'}`,
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                    fontSize: '0.875rem',
+                    color: isActive ? 'var(--accent-light)' : 'var(--text-muted)',
+                    fontWeight: isActive ? 600 : 400,
+                  }}
+                >
+                  <input
+                    type="radio"
+                    name="vorhaben"
+                    value={opt.value}
+                    checked={isActive}
+                    onChange={() => setVorhaben(opt.value)}
+                    style={{ display: 'none' }}
+                  />
+                  <span style={{ fontSize: '1rem' }}>{opt.emoji}</span>
+                  {opt.label}
+                </label>
+              );
+            })}
+          </div>
+          {!vorhaben && status !== 'idle' && (
+            <p style={{ color: '#e74c3c', fontSize: '0.8rem', marginTop: '0.4rem' }}>
+              Bitte wählen Sie ein Vorhaben aus.
+            </p>
+          )}
+        </div>
+
+        {/* ── Name + E-Mail ── */}
         <div className="form-grid-2">
           <div>
             <label style={labelStyle} htmlFor="name">Name *</label>
@@ -126,6 +187,21 @@ export default function ContactForm() {
           </div>
         </div>
 
+        {/* ── Telefon ── */}
+        <div>
+          <label style={labelStyle} htmlFor="phone">Telefon (optional)</label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            placeholder={company.phone}
+            value={form.phone}
+            onChange={handleChange}
+            style={inputStyle}
+          />
+        </div>
+
+        {/* ── Nachricht ── */}
         <div>
           <label style={labelStyle} htmlFor="message">Ihre Nachricht *</label>
           <textarea
@@ -142,18 +218,17 @@ export default function ContactForm() {
 
         <button
           type="submit"
-          disabled={status === 'sending'}
+          disabled={status === 'sending' || !vorhaben}
           className="btn-primary"
           style={{
             justifyContent: 'center',
-            opacity: status === 'sending' ? 0.7 : 1,
-            cursor: status === 'sending' ? 'not-allowed' : 'pointer',
+            opacity: status === 'sending' || !vorhaben ? 0.7 : 1,
+            cursor: status === 'sending' || !vorhaben ? 'not-allowed' : 'pointer',
           }}
         >
           {status === 'sending' ? 'Wird gesendet …' : 'Anfrage absenden →'}
         </button>
       </form>
-
     </div>
   );
 }
