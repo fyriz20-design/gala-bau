@@ -129,15 +129,7 @@ const values = [
 
       {/* ── Haupttext ── */}
       <section className="section">
-        <div
-          className="container"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "4rem",
-            alignItems: "center",
-          }}
-        >
+        <div className="container grid-2col">
           {/* Text links */}
           <div>
             <p style={{ color: "var(--accent-light)", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase" }}>
@@ -181,18 +173,8 @@ const values = [
               alt="Unser Team bei der Arbeit"
               style={{ width: "100%", aspectRatio: "3/4", objectFit: "cover" }}
             />
-            {/* Stat-Box */}
-            <div
-              style={{
-                position: "absolute",
-                bottom: "1.5rem",
-                left: "-1.5rem",
-                backgroundColor: "var(--bg-surface)",
-                border: "1px solid var(--border-light)",
-                padding: "1.25rem 1.5rem",
-                display: "flex",
-                gap: "1.5rem",
-              }}
+            {/* Stat-Box (auf Mobile ausgeblendet via .stat-box-floating) */}
+            <div className="stat-box-floating"
             >
               {[
                 { n: `${yearsOfExp}+`, l: "Jahre" },

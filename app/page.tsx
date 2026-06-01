@@ -160,7 +160,7 @@ export default function HomePage() {
             Regional verwurzelt – kompromisslos in der Ausführung.
           </p>
 
-          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+          <div className="hero-cta">
             <Link href="#kontakt" className="btn-primary">
               Kostenlos anfragen →
             </Link>
@@ -175,6 +175,7 @@ export default function HomePage() {
       <section style={{ backgroundColor: "var(--bg-surface)", borderBottom: "1px solid var(--border)" }}>
         <div className="container">
           <div
+            className="stats-bar"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
@@ -263,10 +264,7 @@ export default function HomePage() {
 
       {/* ── Über uns Teaser ── */}
       <section style={{ backgroundColor: "var(--bg-surface)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
-        <div
-          className="container section"
-          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center" }}
-        >
+        <div className="container section grid-2col">
           {/* Bild */}
           <div style={{ position: "relative" }}>
             <img

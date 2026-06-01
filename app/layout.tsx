@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import config from "@/data/config.json";
 import Link from "next/link";
+import MobileNav from "@/app/components/MobileNav";
 
 export const metadata: Metadata = {
   title: config.seo.title,
@@ -53,7 +54,8 @@ function Header() {
       }}>
         <Logo />
 
-        <nav style={{ display: "flex", alignItems: "center", gap: "1.75rem" }}>
+        {/* Desktop-Navigation (verschwindet unter 820px) */}
+        <nav className="nav-desktop">
           <Link href="/" className="nav-link">Start</Link>
           <Link href="/#leistungen" className="nav-link">Leistungen</Link>
           <Link href="/ueber-uns" className="nav-link">Über uns</Link>
@@ -63,6 +65,9 @@ function Header() {
             Anfrage stellen
           </Link>
         </nav>
+
+        {/* Mobile-Navigation (erscheint unter 820px) */}
+        <MobileNav />
       </div>
     </header>
   );
